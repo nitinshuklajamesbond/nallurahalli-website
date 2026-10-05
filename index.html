@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nallurahalli — Whitefield, Bengaluru | Community Mobility Initiative</title>
+  <meta name="description" content="Nallurahalli neighbourhood guide and the citizen-led New Temple Road 2 km loop mobility initiative easing Whitefield traffic bottlenecks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Kannada:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛣️</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Header (Hero Overlay) -->
+  <header class="site-header hero-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Nallurahalli Home">
+        <span class="brand-title">Nallurahalli</span>
+        <span class="brand-subtitle">ನಲ್ಲೂರಹಳ್ಳಿ · Bengaluru 560066</span>
+      </a>
+
+      <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link active" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
+        
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-en="About" data-kn="ಪರಿಚಯ">About</span> ▾
+          </button>
+          <div class="dropdown-menu">
+            <a href="whereabouts.html" class="dropdown-item" data-en="Whereabouts & Landmarks" data-kn="ಸ್ಥಳ ಮತ್ತು ಪ್ರಮುಖ ತಾಣಗಳು">Whereabouts & Landmarks</a>
+            <a href="about.html" class="dropdown-item" data-en="The Citizen Initiative" data-kn="ನಾಗರಿಕ ಅಭಿಯಾನ">The Citizen Initiative</a>
+            <a href="sources.html" class="dropdown-item" data-en="Press Coverage & Sources" data-kn="ಮಾಧ್ಯಮ ವರದಿಗಳು">Press Coverage & Sources</a>
+          </div>
+        </div>
+
+        <a href="2km-loop.html" class="nav-link" data-en="The 2 km Loop" data-kn="೨ ಕಿ.ಮೀ ಲೂಪ್">The 2 km Loop</a>
+        <a href="updates.html" class="nav-link" data-en="Updates" data-kn="ಅಪ್‌ಡೇಟ್‌ಗಳು">Updates</a>
+        
+        <button class="lang-btn" aria-label="Switch to Kannada">ಕನ್ನಡ</button>
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-toggle" aria-label="Open mobile menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="brand">
+        <span class="brand-title" style="color:#fff;">Nallurahalli</span>
+        <span class="brand-subtitle" style="color:rgba(255,255,255,0.7);">ನಲ್ಲೂರಹಳ್ಳಿ</span>
+      </div>
+      <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
+      <a href="2km-loop.html" class="mobile-nav-link" data-en="The 2 km Loop" data-kn="೨ ಕಿ.ಮೀ ಲೂಪ್">The 2 km Loop</a>
+      <a href="whereabouts.html" class="mobile-nav-link" data-en="Whereabouts & Landmarks" data-kn="ಸ್ಥಳ ಮತ್ತು ಪ್ರಮುಖ ತಾಣಗಳು">Whereabouts & Landmarks</a>
+      <a href="updates.html" class="mobile-nav-link" data-en="Updates" data-kn="ಅಪ್‌ಡೇಟ್‌ಗಳು">Updates</a>
+      <a href="sources.html" class="mobile-nav-link" data-en="Press Coverage" data-kn="ಮಾಧ್ಯಮ ವರದಿಗಳು">Press Coverage</a>
+      <a href="about.html" class="mobile-nav-link" data-en="About Initiative" data-kn="ಅಭಿಯಾನದ ಬಗ್ಗೆ">About Initiative</a>
+      <button class="lang-btn" style="color:#fff; border-color:#fff; margin-top:20px; width:fit-content;" aria-label="Switch language">ಕನ್ನಡ</button>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <!-- HERO SECTION (JHBG Style: 100vh Fullscreen Impact, Single JOIN CTA) -->
+    <section class="hero-jhbg" aria-label="Welcome to Nallurahalli">
+      <div class="hero-scrim"></div>
+      
+      <div class="hero-content">
+        <h1 class="hero-title">
+          NALLURAHALLI
+          <span class="hero-kannada-sub">ನಲ್ಲೂರಹಳ್ಳಿ</span>
+        </h1>
+        <p class="hero-tagline" data-en="A Whitefield neighbourhood, and the residents fixing its roads." data-kn="ವೈಟ್‌ಫೀಲ್ಡ್‌ನ ಒಂದು ಬಡಾವಣೆ ಮತ್ತು ಅದರ ರಸ್ತೆ ಸುಧಾರಣೆಗೆ ಕೈಜೋಡಿಸಿದ ನಾಗರಿಕರು.">
+          A Whitefield neighbourhood, and the residents fixing its roads.
+        </p>
+
+        <!-- The Single Button on Home Screen: JOIN (WhatsApp) -->
+        <a href="https://chat.whatsapp.com/ESPOh4ihiCBDo00XzkISXs" class="btn-join" target="_blank" rel="noopener noreferrer" aria-label="Join Nallurahalli WhatsApp Community">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.23 8.23zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44s-.56-1.35-.77-1.85c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.29 3.78.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.18-.47-.3z"/>
+          </svg>
+          <span data-en="Join Community" data-kn="ಸೇರ್ಪಡೆಗೊಳ್ಳಿ">Join Community</span>
+        </a>
+      </div>
+
+      <div class="hero-attribution">
+        Satellite Route Map · Whitefield, Bengaluru 560066 · Map data © Google
+      </div>
+    </section>
+
+    <!-- BELOW-THE-FOLD: BETTER BLOCK STYLE ALTERNATING FEATURE ROWS -->
+    <section class="section-features">
+      <div class="container">
+
+        <!-- Row 1: The 2 km Loop Initiative -->
+        <article class="feature-row">
+          <div class="feature-media">
+            <img src="assets/img/concreting_work.jpg" alt="Concreting work on New Temple Road bottleneck" loading="lazy">
+            <span class="feature-caption-badge" data-en="October 2026 Milestone" data-kn="ಅಕ್ಟೋಬರ್ ೨೦೨೬ ಮೈಲಿಗಲ್ಲು">October 2026 Milestone</span>
+          </div>
+          <div class="feature-body">
+            <div class="feature-kicker" data-en="Flagship Initiative" data-kn="ಪ್ರಮುಖ ಯೋಜನೆ">Flagship Initiative</div>
+            <h2 class="feature-heading" data-en="The 2 km Loop Initiative" data-kn="೨ ಕಿ.ಮೀ ಲೂಪ್ ಯೋಜನೆ">The 2 km Loop Initiative</h2>
+            <p class="feature-desc" data-en="A 40-metre private land bottleneck narrowed New Temple Road to a single choked lane, causing peak gridlock of 30+ minutes around Nallurhalli Metro. After a year of consensus-building, residents negotiated public access, crowdfunded ₹4 Lakhs, and poured concrete on 4 Oct 2026." data-kn="ಖಾಸಗಿ ಜಮೀನಿನ ೪೦ ಮೀಟರ್ ಕಿರಿದಾದ ಜಾಗವು ನ್ಯೂ ಟೆಂಪಲ್ ರಸ್ತೆಯನ್ನು ತೀವ್ರ ಸಂಚಾರ ದಟ್ಟಣೆಗೆ ದೂಡಿತ್ತು. ಒಂದು ವರ್ಷದ ಚರ್ಚೆಯ ನಂತರ, ಜಮೀನು ಮಾಲೀಕರ ಸಮ್ಮತಿ ಪಡೆದು, ನಾಗರಿಕರು ₹೪ ಲಕ್ಷ ವಂತಿಗೆ ಸಂಗ್ರಹಿಸಿ ರಸ್ತೆ ಕಾಂಕ್ರೀಟ್ ಕಾಮಗಾರಿ ಪೂರ್ಣಗೊಳಿಸಿದ್ದಾರೆ.">
+              A 40-metre private land bottleneck narrowed New Temple Road to a single choked lane, causing peak gridlock of 30+ minutes around Nallurhalli Metro. After a year of consensus-building, residents negotiated public access, crowdfunded ₹4 Lakhs, and poured concrete on 4 Oct 2026.
+            </p>
+            <a href="2km-loop.html" class="feature-link" data-en="Read the project story & explore map →" data-kn="ಯೋಜನೆಯ ವಿವರ ಹಾಗೂ ನಕ್ಷೆ ವೀಕ್ಷಿಸಿ →">
+              Read the project story & explore map &rarr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Row 2: Community in Action (Reversed layout) -->
+        <article class="feature-row reverse">
+          <div class="feature-media">
+            <img src="assets/img/community_line.jpg" alt="Local residents forming a line to pour concrete" loading="lazy">
+            <span class="feature-caption-badge" data-en="Sunday 4 Oct 2026" data-kn="ಭಾನುವಾರ ೪ ಅಕ್ಟೋಬರ್ ೨೦೨೬">Sunday 4 Oct 2026</span>
+          </div>
+          <div class="feature-body">
+            <div class="feature-kicker" data-en="Citizen Action" data-kn="ನಾಗರಿಕ ಶಕ್ತಿ">Citizen Action</div>
+            <h2 class="feature-heading" data-en="Built by Residents & Volunteers" data-kn="ನಾಗರಿಕರು ಮತ್ತು ಸ್ವಯಂಸೇವಕರಿಂದ ನಿರ್ಮಾಣ">Built by Residents & Volunteers</h2>
+            <p class="feature-desc" data-en="Together with Whitefield Rising, apartment residents, school administrators, and local shop owners stepped forward on Sunday morning to lay steel reinforcement and pour concrete. The newly widened stretch is currently undergoing a 2-week curing period." data-kn="ವೈಟ್‌ಫೀಲ್ಡ್ ರೈಸಿಂಗ್ ಸಹಯೋಗದಲ್ಲಿ ಬಡಾವಣೆಯ ನಿವಾಸಿಗಳು, ಶಾಲಾ ಆಡಳಿತ ಹಾಗೂ ಅಂಗಡಿ ಮಾಲೀಕರು ಒಗ್ಗೂಡಿ ಕಾಂಕ್ರೀಟ್ ಕಾಮಗಾರಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದಾರೆ. ಸದ್ಯ ಈ ಮಾರ್ಗವು ಎರಡು ವಾರಗಳ ಕ್ಯೂರಿಂಗ್ ಹಂತದಲ್ಲಿದೆ.">
+              Together with Whitefield Rising, apartment residents, school administrators, and local shop owners stepped forward on Sunday morning to lay steel reinforcement and pour concrete. The newly widened stretch is currently undergoing a 2-week curing period.
+            </p>
+            <a href="updates.html" class="feature-link" data-en="Track curing updates & milestones →" data-kn="ಕಾಮಗಾರಿಯ ಪ್ರಗತಿ ಮತ್ತು ದಿನಚರಿ ಪರಿಶೀಲಿಸಿ →">
+              Track curing updates & milestones &rarr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Row 3: Whereabouts Guide -->
+        <article class="feature-row">
+          <div class="feature-media">
+            <img src="assets/img/loop-map.jpg" alt="Overview map of Nallurahalli locality and transit points" loading="lazy">
+            <span class="feature-caption-badge" data-en="Locality Guide" data-kn="ಬಡಾವಣೆ ಮಾಹಿತಿ">Locality Guide</span>
+          </div>
+          <div class="feature-body">
+            <div class="feature-kicker" data-en="The Neighbourhood" data-kn="ಪ್ರದೇಶದ ಮಾಹಿತಿ">The Neighbourhood</div>
+            <h2 class="feature-heading" data-en="Nallurahalli Whereabouts" data-kn="ನಲ್ಲೂರಹಳ್ಳಿಯ ಪ್ರಮುಖ ಸ್ಥಳಗಳು">Nallurahalli Whereabouts</h2>
+            <p class="feature-desc" data-en="An urban village in the heart of East Bengaluru's Whitefield tech precinct. Connected directly by Nallurhalli Purple Line Metro, home to the 24-acre Nallurahalli Lake, and adjacent to major employment corridors at EPIP Zone and Vydehi Hospital." data-kn="ಪೂರ್ವ ಬೆಂಗಳೂರಿನ ಪ್ರಮುಖ ತಂತ್ರಜ್ಞಾನ ವಲಯದಲ್ಲಿರುವ ನಲ್ಲೂರಹಳ್ಳಿ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ನೇರ ಸಂಪರ್ಕ ಹೊಂದಿದೆ.">
+              An urban village in the heart of East Bengaluru's Whitefield tech precinct. Connected directly by Nallurhalli Purple Line Metro, home to the 24-acre Nallurahalli Lake, and adjacent to major employment corridors at EPIP Zone and Vydehi Hospital.
+            </p>
+            <a href="whereabouts.html" class="feature-link" data-en="Explore Nallurahalli whereabouts →" data-kn="ನಲ್ಲೂರಹಳ್ಳಿಯ ವಿವರವಾದ ಮಾಹಿತಿ →">
+              Explore Nallurahalli whereabouts &rarr;
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Nallurahalli</h3>
+          <p data-en="A grassroots citizen initiative by residents in collaboration with Whitefield Rising. Dedicated to transparency, walkable streets, and bottleneck-free neighbourhoods." data-kn="ವೈಟ್‌ಫೀಲ್ಡ್ ರೈಸಿಂಗ್ ಸಹಯೋಗದಲ್ಲಿ ನಲ್ಲೂರಹಳ್ಳಿ ನಿವಾಸಿಗಳ ಸ್ವಯಂಪ್ರೇರಿತ ಅಭಿಯಾನ. ಪಾರದರ್ಶಕತೆ ಮತ್ತು ಸುಗಮ ಸಂಚಾರಕ್ಕಾಗಿ ನಮ್ಮ ಪ್ರಯತ್ನ.">
+            A grassroots citizen initiative by residents in collaboration with Whitefield Rising. Dedicated to transparency, walkable streets, and bottleneck-free neighbourhoods.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
+          <a href="2km-loop.html" data-en="The 2 km Loop" data-kn="೨ ಕಿ.ಮೀ ಲೂಪ್">The 2 km Loop</a>
+          <a href="whereabouts.html" data-en="Whereabouts" data-kn="ಪ್ರಮುಖ ಸ್ಥಳಗಳು">Whereabouts</a>
+          <a href="updates.html" data-en="Updates" data-kn="ಅಪ್‌ಡೇಟ್‌ಗಳು">Updates</a>
+          <a href="sources.html" data-en="Sources" data-kn="ಮಾಹಿತಿ ಮೂಲಗಳು">Sources</a>
+          <a href="about.html" data-en="About" data-kn="ಪರಿಚಯ">About</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Nallurahalli Residents Community · Whitefield, Bengaluru 560066</p>
+        <p>
+          <a href="https://chat.whatsapp.com/ESPOh4ihiCBDo00XzkISXs" target="_blank" rel="noopener noreferrer" style="color:var(--btn-join-bg); font-weight:700;">
+            Join the WhatsApp Community &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

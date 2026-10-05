@@ -1,0 +1,12 @@
+{
+  "name": "nallurahalli-community-site",
+  "version": "1.0.0",
+  "description": "Static website for Nallurahalli neighbourhood and the New Temple Road 2 km loop initiative",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test-audit.js"
+  },
+  "keywords": ["nallurahalli", "whitefield", "traffic-initiative", "bengaluru"],
+  "author": "Nallurahalli Community",
+  "license": "MIT"
+}
