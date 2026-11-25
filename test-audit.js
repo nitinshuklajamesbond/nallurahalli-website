@@ -1,213 +1,128 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
 const { chromium } = require('playwright');
 
-const PORT = 3456;
-const ROOT = __dirname;
-const REVIEW_DIR = '/Users/nitsshukla/.gemini/jetski/brain/92c06baf-6a3c-4732-aaf9-e95be83dd9bf/review';
-
-const MIME_TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.svg': 'image/svg+xml',
-  '.mp4': 'video/mp4',
-  '.ico': 'image/x-icon'
-};
-
-const server = http.createServer((req, res) => {
-  let reqPath = decodeURI(req.url.split('?')[0]);
-  if (reqPath === '/') reqPath = '/index.html';
-  
-  let filePath = path.join(ROOT, reqPath);
-  if (!fs.existsSync(filePath)) {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('404 Not Found: ' + reqPath);
-    return;
-  }
-
-  const stat = fs.statSync(filePath);
-  if (stat.isDirectory()) {
-    filePath = path.join(filePath, 'index.html');
-  }
-
-  const ext = path.extname(filePath).toLowerCase();
-  const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-
-  const range = req.headers.range;
-  if (range && ext === '.mp4') {
-    const parts = range.replace(/bytes=/, "").split("-");
-    const start = parseInt(parts[0], 10);
-    const end = parts[1] ? parseInt(parts[1], 10) : stat.size - 1;
-    const chunksize = (end - start) + 1;
-    res.writeHead(206, {
-      'Content-Range': `bytes ${start}-${end}/${stat.size}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Length': chunksize,
-      'Content-Type': contentType,
-    });
-    fs.createReadStream(filePath, { start, end }).pipe(res);
-    return;
-  }
-
-  res.writeHead(200, {
-    'Content-Type': contentType,
-    'Content-Length': stat.size,
-    'Cache-Control': 'no-cache'
-  });
-
-  fs.createReadStream(filePath).pipe(res);
-});
-
 async function runAudit() {
-  await new Promise(resolve => server.listen(PORT, resolve));
-  console.log(`Server listening at http://localhost:${PORT}`);
-
-  const browser = await chromium.launch({ headless: true });
-  const report = {
-    errors: [],
-    failedRequests: [],
-    tests: []
-  };
-
-  const pagesToTest = [
-    'index.html',
-    '2km-loop.html',
-    'whereabouts.html',
-    'updates.html',
-    'sources.html',
-    'about.html'
-  ];
-
-  // 1. Desktop Audit
-  const desktopContext = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const page = await desktopContext.newPage();
-
-  page.on('console', msg => {
-    if (msg.type() === 'error') {
-      report.errors.push(`[Console Error] ${msg.text()} at ${page.url()}`);
+  const output = fs.mkdtempSync(path.join(os.tmpdir(), 'nallurahalli-audit-'));
+  const server = spawn(process.execPath, ['server.js'], {
+    cwd: __dirname,
+    env: { ...process.env, PORT: '3456' },
+    stdio: ['ignore', 'pipe', 'inherit']
+  });
+  let browser;
+  try {
+    await new Promise((resolve, reject) => {
+      server.stdout.once('data', resolve);
+      server.once('error', reject);
+      server.once('exit', code => reject(new Error(`Server exited: ${code}`)));
+    });
+    browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH });
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    page.on('response', response => {
+      if (response.url().startsWith('http://localhost:3456/') && response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
+    });
+    const url = 'http://localhost:3456/2km-loop.html';
+    for (const name of ['index', 'whereabouts', 'updates', 'sources', 'about', '2km-loop']) {
+      assert.equal((await page.goto(`http://localhost:3456/${name}.html`)).status(), 200);
     }
-  });
+    const visiblePhase = async phase => {
+      assert.deepEqual(await page.locator('.phase-panel:visible').evaluateAll(nodes => nodes.map(node => node.id)), [`phase-${phase}`]);
+      assert.equal(await page.locator(`#tab-${phase}`).getAttribute('aria-selected'), 'true');
+      assert.equal(await page.locator('.phase-tab[tabindex="0"]').count(), 1);
+    };
+    await visiblePhase(2);
+    assert.equal(await page.locator('.fund-progress-wrap').isHidden(), true);
+    await page.locator('.map-card img').scrollIntoViewIfNeeded();
+    await page.locator('.map-card img').evaluate(node => node.decode());
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.screenshot({ path: path.join(output, 'desktop.png'), fullPage: true });
+    for (const phase of [1, 3, 4, 2]) {
+      await page.locator(`#tab-${phase}`).click();
+      await visiblePhase(phase);
+    }
+    await page.locator('#tab-2').focus();
+    for (const [key, phase] of [['ArrowRight', 3], ['End', 4], ['ArrowRight', 1], ['ArrowLeft', 4], ['Home', 1]]) {
+      await page.keyboard.press(key);
+      await visiblePhase(phase);
+      assert.equal(await page.locator(`#tab-${phase}`).evaluate(node => node === document.activeElement), true);
+    }
+    await page.locator('.phase-step[data-goto-phase="2"]').click();
+    await visiblePhase(2);
+    await page.locator('.phase-link[data-goto-phase="3"]').click();
+    await visiblePhase(3);
+    for (const phase of [1, 2, 3, 4]) {
+      await page.locator(`#tab-${phase}`).click();
+      for (const image of await page.locator(`#phase-${phase} img`).all()) {
+        await image.scrollIntoViewIfNeeded();
+        await image.evaluate(node => node.decode());
+      }
+      for (const slider of await page.locator(`#phase-${phase} .compare-slider-input`).all()) {
+        for (const value of ['25', '75']) {
+          await slider.fill(value);
+          assert.equal(await slider.evaluate(node => node.closest('.compare-box').querySelector('.compare-overlay').style.width), `${value}%`);
+        }
+        const widths = await slider.evaluate(node => {
+          const box = node.closest('.compare-box');
+          return [box.offsetWidth, box.querySelector('.compare-overlay img').offsetWidth];
+        });
+        assert.equal(widths[0], widths[1]);
+      }
+    }
+    await page.locator('#tab-2').click();
+    await page.locator('.nav-menu .lang-btn').click();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'kn');
+    assert.equal(await page.locator('.page-hero-title').textContent(), await page.locator('.page-hero-title').getAttribute('data-kn'));
+    await page.reload();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'kn');
+    await page.locator('.nav-menu .lang-btn').click();
+    await page.locator('.faq summary').first().click();
+    assert.equal(await page.locator('.faq details').first().getAttribute('open'), '');
 
-  page.on('pageerror', err => {
-    report.errors.push(`[Page Crash/Error] ${err.message} at ${page.url()}`);
-  });
-
-  page.on('requestfailed', req => {
-    report.failedRequests.push(`[Failed Request] ${req.url()} (${req.failure()?.errorText})`);
-  });
-
-  for (const pageName of pagesToTest) {
-    const url = `http://localhost:${PORT}/${pageName}`;
-    const response = await page.goto(url, { waitUntil: 'networkidle' });
-    const status = response.status();
-    const title = await page.title();
-    console.log(`[PASS] ${pageName} -> HTTP ${status} | Title: "${title}"`);
-
-    report.tests.push({ page: pageName, status, title });
-
-    // Capture desktop screenshots
-    const screenshotPath = path.join(REVIEW_DIR, `desktop_${pageName.replace('.html', '')}.png`);
-    await page.screenshot({ path: screenshotPath, fullPage: true });
+    // Exercise confirmed, zero, invalid and over-target donations before initialization.
+    for (const [raised, goal, width] of [['0', '3070000', '0%'], ['1535000', '3070000', '50%'], ['4000000', '3070000', '100%'], ['oops', '3070000', null], ['-1', '3070000', null], ['10', '0', null]]) {
+      await page.route('**/2km-loop.html', async route => {
+        const html = fs.readFileSync(path.join(__dirname, '2km-loop.html'), 'utf8').replace('data-goal="3070000" data-raised=""', `data-goal="${goal}" data-raised="${raised}"`);
+        await route.fulfill({ contentType: 'text/html', body: html });
+      });
+      await page.goto(url);
+      assert.equal(await page.locator('.fund-progress-wrap').isVisible(), width !== null);
+      if (width !== null) assert.equal(await page.locator('.fund-progress-fill').evaluate(node => node.style.width), width);
+      await page.unroute('**/2km-loop.html');
+    }
+    await page.goto(url);
+    const links = await page.locator('a[href], link[rel="stylesheet"], script[src], img, video[poster], source').evaluateAll(nodes => nodes.flatMap(node => ['href', 'src', 'poster'].map(key => node.getAttribute(key)).filter(value => value && !/^(https?:|data:)/.test(value))));
+    for (const link of new Set(links)) {
+      const target = new URL(link, url);
+      assert.equal((await page.request.get(target.href)).status(), 200, link);
+      if (target.hash) assert.equal(await page.locator(target.hash).count(), 1, link);
+    }
+    for (const width of [320, 390, 768, 1024]) {
+      await page.setViewportSize({ width, height: 844 });
+      for (const phase of [1, 2, 3, 4]) {
+        await page.locator(`#tab-${phase}`).click();
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `Overflow at ${width}px, phase ${phase}`);
+      }
+      if (width === 390) {
+        await page.locator('#tab-2').click();
+        await page.evaluate(() => scrollTo(0, 0));
+        await page.screenshot({ path: path.join(output, 'mobile.png'), fullPage: true });
+        await page.locator('.mobile-toggle').click();
+        assert.equal(await page.locator('.mobile-drawer').evaluate(node => node.classList.contains('open')), true);
+        await page.locator('.mobile-drawer-close').click();
+        assert.equal(await page.locator('.mobile-drawer').evaluate(node => node.classList.contains('open')), false);
+      }
+    }
+    assert.deepEqual(errors, []);
+    console.log(`PASS: page smoke checks, phase navigation/keyboard, comparisons/images, language, FAQ, fundraising, local links, mobile drawer and responsive widths. Screenshots: ${output}`);
+  } finally {
+    if (browser) await browser.close();
+    server.kill();
   }
-
-  // 2. Specific Interaction Tests on index.html
-  await page.goto(`http://localhost:${PORT}/index.html`, { waitUntil: 'networkidle' });
-  const joinBtnHref = await page.$eval('.btn-join', el => el.href);
-  console.log(`[PASS] Home Join Button Link: ${joinBtnHref}`);
-
-  // Test Language Toggle on index.html
-  const initialLang = await page.$eval('html', el => el.getAttribute('lang'));
-  await page.click('.lang-btn');
-  const switchedLang = await page.$eval('html', el => el.getAttribute('lang'));
-  console.log(`[PASS] Language Toggle: ${initialLang} -> ${switchedLang}`);
-  await page.screenshot({ path: path.join(REVIEW_DIR, 'desktop_index_kannada.png') });
-
-  // 3. Specific Interaction Tests on 2km-loop.html
-  await page.goto(`http://localhost:${PORT}/2km-loop.html`, { waitUntil: 'networkidle' });
-  
-  // Test Compare Slider
-  const sliderInput = await page.$('.compare-slider-input');
-  if (sliderInput) {
-    await sliderInput.fill('25');
-    await page.evaluate(() => {
-      document.querySelector('.compare-slider-input').dispatchEvent(new Event('input'));
-    });
-    const overlayWidth25 = await page.$eval('.compare-overlay', el => el.style.width);
-    console.log(`[PASS] Slider position at 25%: overlay width = ${overlayWidth25}`);
-
-    await sliderInput.fill('75');
-    await page.evaluate(() => {
-      document.querySelector('.compare-slider-input').dispatchEvent(new Event('input'));
-    });
-    const overlayWidth75 = await page.$eval('.compare-overlay', el => el.style.width);
-    console.log(`[PASS] Slider position at 75%: overlay width = ${overlayWidth75}`);
-    await page.screenshot({ path: path.join(REVIEW_DIR, 'desktop_slider_active.png') });
-  }
-
-  // Verify Video Player element
-  const videoExists = await page.$eval('.video-player', el => el !== null);
-  console.log(`[PASS] Video element present and configured: ${videoExists}`);
-
-  // 4. Mobile Viewport Audit (iPhone 13/14 size: 390x844)
-  const mobileContext = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1'
-  });
-  const mobilePage = await mobileContext.newPage();
-
-  await mobilePage.goto(`http://localhost:${PORT}/index.html`, { waitUntil: 'networkidle' });
-  await mobilePage.screenshot({ path: path.join(REVIEW_DIR, 'mobile_index_hero.png') });
-
-  // Test Mobile Navigation Drawer
-  await mobilePage.click('.mobile-toggle');
-  await mobilePage.waitForTimeout(300);
-  const isDrawerOpen = await mobilePage.$eval('.mobile-drawer', el => el.classList.contains('open'));
-  console.log(`[PASS] Mobile Drawer Open State: ${isDrawerOpen}`);
-  await mobilePage.screenshot({ path: path.join(REVIEW_DIR, 'mobile_drawer_open.png') });
-
-  await mobilePage.click('.mobile-drawer-close');
-  await mobilePage.waitForTimeout(300);
-
-  // Mobile 2km loop page
-  await mobilePage.goto(`http://localhost:${PORT}/2km-loop.html`, { waitUntil: 'networkidle' });
-  await mobilePage.screenshot({ path: path.join(REVIEW_DIR, 'mobile_2km_loop_top.png') });
-
-  // Scroll to compare slider on mobile
-  await mobilePage.evaluate(() => {
-    document.querySelector('.compare-section').scrollIntoView();
-  });
-  await mobilePage.waitForTimeout(300);
-  await mobilePage.screenshot({ path: path.join(REVIEW_DIR, 'mobile_slider_section.png') });
-
-  // Scroll to video on mobile
-  await mobilePage.evaluate(() => {
-    document.querySelector('.video-section').scrollIntoView();
-  });
-  await mobilePage.waitForTimeout(300);
-  await mobilePage.screenshot({ path: path.join(REVIEW_DIR, 'mobile_video_section.png') });
-
-  await browser.close();
-  server.close();
-
-  console.log("\n=== AUDIT RESULTS ===");
-  console.log(`Total Errors: ${report.errors.length}`);
-  console.log(`Total Failed Requests: ${report.failedRequests.length}`);
-  if (report.errors.length > 0) {
-    console.log("Errors:", report.errors);
-  }
-  if (report.failedRequests.length > 0) {
-    console.log("Failed Requests:", report.failedRequests);
-  }
-  console.log("Audit complete successfully!");
 }
 
-runAudit().catch(err => {
-  console.error("Audit failure:", err);
-  process.exit(1);
-});
+runAudit().catch(error => { console.error(error); process.exitCode = 1; });
